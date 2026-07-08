@@ -1,0 +1,36 @@
+# ── Secrets — never commit real env files or key stashes ───────────────
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+BTB_AI/BTB_API_Key
+*.pem
+*.p12
+*.key
+
+# ── Python ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# ── Node / Vite ────────────────────────────────────────────────────────
+node_modules/
+dist/
+dist.new/
+dist.old/
+*.local
+
+# ── RAG / generated data artifacts ─────────────────────────────────────
+BTB_AI/vectorstore/
+
+# ── OS / editor cruft ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
