@@ -8,7 +8,7 @@ const ORG_DOMAINS = [
   [/google/i, 'google.com'],
   [/honeywell/i, 'honeywell.com'],
   [/isro/i, 'www.isro.gov.in'],
-  [/\bgtt\b/i, 'gtt.com'],
+  [/\bgtt\b/i, 'gtt.fr'], // Gaztransport & Technigaz (gtt.com is a different co.)
   [/awty/i, 'awty.org'],
 ]
 
