@@ -7,6 +7,8 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomePage },
     { path: '/interviews/:id', name: 'interview', component: InterviewPage, props: true },
+    // Unlisted: reachable only by typing the URL — nothing on the site links here.
+    { path: '/admin', name: 'admin', component: () => import('./pages/AdminPage.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
   scrollBehavior(to, from, savedPosition) {

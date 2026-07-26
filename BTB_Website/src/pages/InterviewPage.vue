@@ -1,7 +1,10 @@
 <script setup>
-import { computed, watchEffect } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { interviews, getInterview } from '../data/interviews'
+import { loadTranscript } from '../data/transcript'
+import { useSeo } from '../composables/useSeo'
+import { interviewSeo } from '../lib/seo'
 import ChatPanel from '../components/ChatPanel.vue'
 import VideoEmbed from '../components/VideoEmbed.vue'
 
@@ -12,6 +15,17 @@ const props = defineProps({
 const router = useRouter()
 const person = computed(() => getInterview(props.id))
 
+// Full transcript — lazily loaded per episode. Kept in the DOM (inside <details>)
+// so search engines index the text even while it's visually collapsed.
+const transcript = ref([])
+watch(
+  () => props.id,
+  async (id) => {
+    transcript.value = await loadTranscript(id)
+  },
+  { immediate: true }
+)
+
 const neighbors = computed(() => {
   const i = interviews.findIndex((p) => p.id === props.id)
   return {
@@ -21,12 +35,10 @@ const neighbors = computed(() => {
 })
 
 watchEffect(() => {
-  if (!person.value) {
-    router.replace('/')
-  } else {
-    document.title = `${person.value.name} — Beyond the Blueprint`
-  }
+  if (!person.value) router.replace('/')
 })
+
+useSeo(() => (person.value ? interviewSeo(person.value) : null))
 </script>
 
 <template>
@@ -76,6 +88,18 @@ watchEffect(() => {
           <cite>{{ person.name }}</cite>
         </blockquote>
 
+        <section v-if="transcript.length" class="transcript">
+          <details class="ts">
+            <summary class="ts-summary">
+              <h2>Full transcript</h2>
+              <span class="ts-hint meta">{{ transcript.length }} sections · click to read</span>
+            </summary>
+            <div class="ts-body">
+              <p v-for="(para, i) in transcript" :key="i">{{ para }}</p>
+            </div>
+          </details>
+        </section>
+
         <nav class="pager" aria-label="More episodes">
           <router-link
             v-if="neighbors.prev"
@@ -115,7 +139,7 @@ watchEffect(() => {
   grid-template-columns: minmax(0, 1fr) 360px;
   gap: 56px;
   align-items: start;
-  margin-top: 36px;
+  margin-top: 28px;
 }
 
 /* header */
@@ -124,7 +148,7 @@ watchEffect(() => {
   color: var(--faint);
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 36px;
+  margin-bottom: 28px;
   transition: color 0.2s ease;
 }
 
@@ -133,18 +157,18 @@ watchEffect(() => {
 }
 
 .head-meta {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 h1 {
-  font-size: clamp(32px, 4.5vw, 44px);
+  font-size: clamp(26px, 3.2vw, 34px);
   font-weight: 700;
   letter-spacing: -0.025em;
 }
 
 .byline {
-  margin-top: 8px;
-  font-size: 16px;
+  margin-top: 6px;
+  font-size: 15px;
   color: var(--muted);
 }
 
@@ -207,6 +231,63 @@ h1 {
   font-style: normal;
   font-size: 13.5px;
   color: var(--faint);
+}
+
+/* transcript */
+.transcript {
+  margin-top: 48px;
+}
+
+.ts {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.ts-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  padding: 12px 0;
+}
+
+.ts-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ts-summary h2 {
+  font-size: 20px;
+  font-weight: 650;
+  display: inline;
+}
+
+.ts-summary h2::before {
+  content: '＋';
+  margin-right: 10px;
+  color: var(--faint);
+  font-weight: 400;
+}
+
+.ts[open] .ts-summary h2::before {
+  content: '－';
+}
+
+.ts-hint {
+  font-size: 12.5px;
+}
+
+.ts-body {
+  margin-top: 8px;
+  max-width: 660px;
+}
+
+.ts-body p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 16px;
 }
 
 /* pager */

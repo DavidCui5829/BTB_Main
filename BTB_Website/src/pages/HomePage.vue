@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted } from 'vue'
 import { interviews } from '../data/interviews'
+import { useSeo } from '../composables/useSeo'
+import { homeSeo } from '../lib/seo'
 import InterviewCard from '../components/InterviewCard.vue'
 import ChatPanel from '../components/ChatPanel.vue'
 
@@ -10,9 +11,22 @@ const homeQuestions = [
   'What advice do they have for students?',
 ]
 
-onMounted(() => {
-  document.title = 'Beyond the Blueprint'
-})
+const hosts = [
+  {
+    name: 'Joshua Babalola',
+    role: 'Co-host',
+    portfolio: '',
+    email: '',
+  },
+  {
+    name: 'David Cui',
+    role: 'Co-host',
+    portfolio: 'https://dczhportfolio.vercel.app/',
+    email: 'davidcuizhh1@gmail.com',
+  },
+]
+
+useSeo(homeSeo(interviews))
 </script>
 
 <template>
@@ -58,6 +72,28 @@ onMounted(() => {
         </div>
         <div class="ask-panel" v-reveal="100">
           <ChatPanel variant="panel" :suggestions="homeQuestions" />
+        </div>
+      </div>
+    </section>
+
+    <!-- hosts -->
+    <section id="hosts" class="section hosts">
+      <div class="container">
+        <div class="section-head" v-reveal>
+          <h2>The hosts</h2>
+          <p>The students behind Beyond the Blueprint.</p>
+        </div>
+        <div class="hosts-grid">
+          <div v-for="(h, i) in hosts" :key="h.name" class="host-card" v-reveal="i * 80">
+            <strong>{{ h.name }}</strong>
+            <span class="host-role">{{ h.role }}</span>
+            <div v-if="h.portfolio || h.email" class="host-links">
+              <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">
+                Portfolio ↗
+              </a>
+              <a v-if="h.email" :href="`mailto:${h.email}`">{{ h.email }}</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -127,6 +163,57 @@ onMounted(() => {
 /* ask */
 .ask-panel {
   max-width: 680px;
+}
+
+/* hosts */
+.hosts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 320px));
+  gap: 16px;
+}
+
+.host-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.host-card strong {
+  font-size: 16.5px;
+  font-weight: 650;
+}
+
+.host-role {
+  font-size: 13.5px;
+  color: var(--faint);
+}
+
+.host-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.host-links a {
+  color: var(--muted);
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.host-links a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 620px) {
+  .hosts-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

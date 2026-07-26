@@ -1,9 +1,12 @@
 # ── Secrets — never commit real env files or key stashes ───────────────
+# Ignore EVERY env file everywhere, then re-allow only the safe, non-secret ones
+# (a template, and the frontend's public VITE build config).
 .env
-.env.local
-.env.*.local
 *.env
+.env.*
+*.env.*
 !.env.example
+!.env.production
 BTB_AI/BTB_API_Key
 *.pem
 *.p12
@@ -27,6 +30,21 @@ dist.old/
 
 # ── RAG / generated data artifacts ─────────────────────────────────────
 BTB_AI/vectorstore/
+
+# ── Large media & recordings (use YouTube; keep them out of git) ───────
+*.mp4
+*.mov
+*.wav
+*.m4a
+BTB_Clips/
+BTB_Prepare/**/clips/
+
+# ── Generated transcripts (the site ships BTB_Website/src/data/transcripts/) ──
+BTB_Prepare/**/*.diarized.json
+BTB_Prepare/**/*.diarized.txt
+BTB_Prepare/**/*.timestamped.txt
+BTB_Prepare/**/*.json
+BTB_Prepare/descript_*_result.json
 
 # ── OS / editor cruft ──────────────────────────────────────────────────
 .DS_Store

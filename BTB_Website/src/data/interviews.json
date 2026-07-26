@@ -1,0 +1,146 @@
+[
+  {
+    "id": "xavier-eldridge",
+    "ragId": "XavierEldridge",
+    "episode": 1,
+    "name": "Xavier Eldridge",
+    "role": "Makerspace Technician",
+    "org": "Awty International School",
+    "field": "Making & Robotics",
+    "video": "https://youtu.be/Ok7C8DbFP2U?si=PZcOMopfhzzkgGhe",
+    "date": "2025-05-07T18:42:03-07:00",
+    "intro": "Xavier’s path started with a middle-school robotics club and a high-school FIRST team that reached the world championships. After a computer science degree and years of mentoring robotics teams, he now runs Awty’s makerspace — keeping the 3D printers, laser engravers, CNC and water jet ready, and walking students from idea to finished build.",
+    "highlights": [
+      "A day running the makerspace",
+      "From FIRST robotics to a career",
+      "Favorite machines: water jet and CNC",
+      "Skills that matter: teaching and project management"
+    ],
+    "quote": "Give students the tools and the access, then watch where their creativity takes things.",
+    "questions": [
+      "What does a typical day look like for Xavier?",
+      "How did Xavier get into robotics?",
+      "What machines should students learn first?"
+    ]
+  },
+  {
+    "id": "elliot-stokes",
+    "ragId": "ElliotStokes",
+    "episode": 2,
+    "name": "Elliot Wolf Stokes",
+    "role": "Director of Process Safety",
+    "org": "Honeywell",
+    "field": "Chemical Engineering",
+    "video": "https://www.youtube.com/watch?v=TbHkYPGrf-w",
+    "date": "2025-05-10T17:27:04-07:00",
+    "intro": "Chemistry wasn’t even Elliot’s favorite subject — but he was a problem solver, and chemical engineering won him over when he saw how molecular architecture decides whether a material is breathable, waterproof, or bulletproof. After years in R&D and an MBA, he now leads process safety at Honeywell, modeling catastrophic risk so it never becomes real.",
+    "highlights": [
+      "The day process safety hit home",
+      "Monte Carlo: from molecules to risk",
+      "Misconceptions about chemical engineers",
+      "Process safety and green energy"
+    ],
+    "quote": "In engineering, that’s what we do — we solve problems.",
+    "questions": [
+      "What is process safety?",
+      "How does Elliot use Monte Carlo simulation?",
+      "What misconceptions exist about chemical engineering?"
+    ]
+  },
+  {
+    "id": "mutahar-mehkri",
+    "ragId": "MutaharMehkri",
+    "episode": 3,
+    "name": "Mutahar Mehkri",
+    "role": "System Safety Engineer",
+    "org": "NASA Johnson Space Center",
+    "field": "Aerospace",
+    "video": "https://youtu.be/NZ2mCShJdWI?si=Knw2dTxluATkW3tA",
+    "date": "2025-05-10T17:54:32-07:00",
+    "intro": "Mutahar’s middle-school vision board said “astronaut.” He started at Johnson Space Center as an EVA safety engineer, monitoring astronauts on spacewalks from the Mission Evaluation Room. After working on Axiom Space’s next-generation lunar spacesuit, he now helps certify the Lunar Terrain Vehicle — the crewed Moon rover for the Artemis program.",
+    "highlights": [
+      "Keeping astronauts alive on spacewalks",
+      "Why a suit water leak can drown you",
+      "Certifying the Lunar Terrain Vehicle",
+      "Small hazards are the dangerous ones"
+    ],
+    "quote": "Sometimes the smallest hazards are the most dangerous ones.",
+    "questions": [
+      "What did Mutahar do as an EVA safety engineer?",
+      "What is the Lunar Terrain Vehicle?",
+      "What advice does Mutahar have for students?"
+    ]
+  },
+  {
+    "id": "aziz-bamik",
+    "ragId": "AzizBamak",
+    "episode": 4,
+    "name": "Aziz Bamik",
+    "role": "Project Manager → CBO",
+    "org": "GTT",
+    "field": "Energy & Maritime",
+    "video": "https://youtu.be/GFSqrQqcEgs?si=g3nl0HPPYqfdG-5T",
+    "date": "2025-06-19T15:45:29-07:00",
+    "intro": "Aziz joined GTT, the French company behind the containment technology inside every LNG carrier, testing cryogenic materials at −196 °C. Choosing project management over pure engineering took him from shipyards in Korea and Japan, to global head of business development, to opening GTT’s Americas subsidiary. Today he is Chief Business Officer of Ascenz Marorka, GTT’s digital arm.",
+    "highlights": [
+      "Testing materials at −196 °C",
+      "Why he chose project management",
+      "From 30% to 100% market share",
+      "The case for careers in energy"
+    ],
+    "quote": "Be curious, look at the big picture, and find a mentor.",
+    "questions": [
+      "How did Aziz move from engineering to business?",
+      "What does GTT’s LNG technology do?",
+      "Why does Aziz recommend energy careers?"
+    ]
+  },
+  {
+    "id": "nandini-harinath",
+    "ragId": "NandiniHarinath",
+    "episode": 5,
+    "name": "Nandini Harinath",
+    "role": "Mission Operations Lead",
+    "org": "ISRO",
+    "field": "Space Systems",
+    "video": "https://youtu.be/gL_ity9ZVuM?si=Q4ezGTw-bCwwT8Jj",
+    "date": "2025-07-16T14:08:02-07:00",
+    "intro": "Nandini grew up identifying constellations with her father. At ISRO she became Project Manager for Mission Design and Deputy Operations Director of the Mars Orbiter Mission, working around a 22-minute one-way signal delay to Mars. She now leads mission operations — “doctors attending to patients,” for satellites.",
+    "highlights": [
+      "Her roles on the Mars Orbiter Mission",
+      "A day in mission operations",
+      "Commanding a spacecraft 22 light-minutes away",
+      "How the mission stayed low-cost"
+    ],
+    "quote": "Space is zero tolerant to errors. That is why teamwork is everything.",
+    "questions": [
+      "What was Nandini’s role in the Mars mission?",
+      "What does a normal day at ISRO look like?",
+      "How did ISRO keep the mission cost low?"
+    ]
+  },
+  {
+    "id": "michael-adelemoni",
+    "ragId": "MichaelAdelemoni",
+    "episode": 6,
+    "name": "Michael Adelemoni",
+    "role": "Software Engineer",
+    "org": "Google",
+    "field": "Software",
+    "video": "https://youtu.be/r04j9zrqMeU?si=K1wSBfnVHcyRUfQj",
+    "date": "2026-06-03T13:58:20-07:00",
+    "intro": "Michael grew up in Ibadan, Nigeria, picked up JavaScript by copying his older brother, and studied computer science at Purdue, where research at the Data Mine led him to AI weather modeling. At Google he works on testing infrastructure — and spends his 20% time teaching AI to predict extreme weather.",
+    "highlights": [
+      "A software engineer’s day at Google",
+      "How AI is changing the job",
+      "Research, not just internships",
+      "Advice for CS students in the AI age"
+    ],
+    "quote": "Be comfortable using AI — but be able to work without it when you need to.",
+    "questions": [
+      "What does Michael’s day at Google look like?",
+      "How does Michael use AI at work?",
+      "What should CS students focus on today?"
+    ]
+  }
+]

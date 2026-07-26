@@ -3,12 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="iv8nf68U_bQ-dGZ9_dF-IX4BsL-k5eU2_59h1Ksvdgc" />
+    <meta name="theme-color" content="#fcfcfb" />
+
+    <!-- Per-route SEO. Everything between the markers is baked per page at
+         build time (src/lib/seo.js + the btb-prerender plugin) and updated at
+         runtime by useSeo(). Keep the markers. -->
+    <!--seo-start-->
     <meta
       name="description"
-      content="Beyond the Blueprint — student-run interviews about the day-to-day life behind engineering careers."
+      content="Student-run video interviews with engineers and professionals from NASA, Google, ISRO, Honeywell and more — the real day-to-day behind engineering careers. Watch every episode and ask the AI, answered with sources."
     />
-    <title>Beyond the Blueprint</title>
-    <meta name="theme-color" content="#fcfcfb" />
+    <title>Beyond the Blueprint — What Engineers Actually Do</title>
+    <link rel="canonical" href="https://thebtbpodcast.com/" />
+    <meta property="og:site_name" content="Beyond the Blueprint" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Beyond the Blueprint — What Engineers Actually Do" />
+    <meta
+      property="og:description"
+      content="Student-run video interviews with engineers and professionals from NASA, Google, ISRO, Honeywell and more — the real day-to-day behind engineering careers. Watch every episode and ask the AI, answered with sources."
+    />
+    <meta property="og:url" content="https://thebtbpodcast.com/" />
+    <meta property="og:image" content="https://thebtbpodcast.com/btb-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Beyond the Blueprint — What Engineers Actually Do" />
+    <meta
+      name="twitter:description"
+      content="Student-run video interviews with engineers and professionals from NASA, Google, ISRO, Honeywell and more — the real day-to-day behind engineering careers. Watch every episode and ask the AI, answered with sources."
+    />
+    <meta name="twitter:image" content="https://thebtbpodcast.com/btb-cover.png" />
+    <!--seo-end-->
+
+    <!-- Site-wide structured data (route-specific JSON-LD is injected at runtime) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://thebtbpodcast.com/#website",
+            "url": "https://thebtbpodcast.com/",
+            "name": "Beyond the Blueprint",
+            "description": "Student-run video interviews about the day-to-day reality behind engineering careers.",
+            "publisher": { "@id": "https://thebtbpodcast.com/#org" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://thebtbpodcast.com/#org",
+            "name": "Beyond the Blueprint",
+            "url": "https://thebtbpodcast.com/",
+            "logo": "https://thebtbpodcast.com/btb-cover.png"
+          }
+        ]
+      }
+    </script>
+
     <link rel="icon" type="image/png" href="/btb-cover.png" />
     <link rel="apple-touch-icon" href="/btb-cover.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
