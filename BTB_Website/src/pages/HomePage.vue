@@ -26,6 +26,15 @@ const hosts = [
   },
 ]
 
+function initials(name) {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
+
 useSeo(homeSeo(interviews))
 </script>
 
@@ -85,13 +94,16 @@ useSeo(homeSeo(interviews))
         </div>
         <div class="hosts-grid">
           <div v-for="(h, i) in hosts" :key="h.name" class="host-card" v-reveal="i * 80">
-            <strong>{{ h.name }}</strong>
-            <span class="host-role">{{ h.role }}</span>
-            <div v-if="h.portfolio || h.email" class="host-links">
-              <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">
-                Portfolio ↗
-              </a>
-              <a v-if="h.email" :href="`mailto:${h.email}`">{{ h.email }}</a>
+            <span class="avatar" aria-hidden="true">{{ initials(h.name) }}</span>
+            <div class="host-info">
+              <strong>{{ h.name }}</strong>
+              <span class="host-role">{{ h.role }}</span>
+              <div v-if="h.portfolio || h.email" class="host-links">
+                <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">
+                  Portfolio ↗
+                </a>
+                <a v-if="h.email" :href="`mailto:${h.email}`">{{ h.email }}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -174,12 +186,33 @@ useSeo(homeSeo(interviews))
 
 .host-card {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
   padding: 22px 24px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: #fff;
+}
+
+.avatar {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 650;
+  color: #fff;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--accent), #16307a);
+}
+
+.host-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .host-card strong {

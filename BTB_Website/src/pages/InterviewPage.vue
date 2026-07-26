@@ -5,6 +5,7 @@ import { interviews, getInterview } from '../data/interviews'
 import { loadTranscript } from '../data/transcript'
 import { useSeo } from '../composables/useSeo'
 import { interviewSeo } from '../lib/seo'
+import { orgLogo } from '../lib/logos'
 import ChatPanel from '../components/ChatPanel.vue'
 import VideoEmbed from '../components/VideoEmbed.vue'
 
@@ -53,7 +54,18 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
           EP {{ String(person.episode).padStart(2, '0') }} · {{ person.field }}
         </p>
         <h1 v-reveal="50">{{ person.name }}</h1>
-        <p class="byline" v-reveal="90">{{ person.role }} · {{ person.org }}</p>
+        <p class="byline" v-reveal="90">
+          <img
+            v-if="orgLogo(person.org)"
+            class="org-logo"
+            :src="orgLogo(person.org)"
+            :alt="`${person.org} logo`"
+            width="22"
+            height="22"
+            @error="(e) => (e.target.style.display = 'none')"
+          />
+          <span>{{ person.role }} · {{ person.org }}</span>
+        </p>
       </header>
     </div>
 
@@ -167,9 +179,20 @@ h1 {
 }
 
 .byline {
-  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
   font-size: 15px;
   color: var(--muted);
+}
+
+.org-logo {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 5px;
+  object-fit: contain;
 }
 
 /* bio */
