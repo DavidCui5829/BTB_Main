@@ -44,42 +44,44 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
 
 <template>
   <main v-if="person" class="detail">
-    <div class="container">
-      <router-link :to="{ path: '/', hash: '#interviews' }" class="back">
-        ← Interviews
-      </router-link>
+    <div class="detail-hero">
+      <div class="container">
+        <router-link :to="{ path: '/', hash: '#interviews' }" class="back">
+          ← Interviews
+        </router-link>
 
-      <header class="head">
-        <p class="meta head-meta" v-reveal>
-          EP {{ String(person.episode).padStart(2, '0') }} · {{ person.field }}
-        </p>
-        <h1 v-reveal="50">{{ person.name }}</h1>
-        <p class="byline" v-reveal="90">
-          <img
-            v-if="orgLogo(person.org)"
-            class="org-logo"
-            :src="orgLogo(person.org)"
-            :alt="`${person.org} logo`"
-            width="22"
-            height="22"
-            @error="(e) => (e.target.style.display = 'none')"
-          />
-          <span>{{ person.role }} · {{ person.org }}</span>
-        </p>
-      </header>
+        <header class="head">
+          <p class="meta head-meta" v-reveal>
+            EP {{ String(person.episode).padStart(2, '0') }} · {{ person.field }}
+          </p>
+          <h1 v-reveal="50">{{ person.name }}</h1>
+          <p class="byline" v-reveal="90">
+            <img
+              v-if="orgLogo(person.org)"
+              class="org-logo"
+              :src="orgLogo(person.org)"
+              :alt="`${person.org} logo`"
+              width="22"
+              height="22"
+              @error="(e) => (e.target.style.display = 'none')"
+            />
+            <span>{{ person.role }} · {{ person.org }}</span>
+          </p>
+        </header>
+      </div>
+
+      <div class="container video-wrap" v-reveal="120">
+        <VideoEmbed
+          :video="person.video"
+          :title="`Interview with ${person.name}`"
+          :episode="person.episode"
+        />
+      </div>
     </div>
 
     <div class="container detail-grid">
       <!-- main column -->
       <article>
-        <div v-reveal="120">
-          <VideoEmbed
-            :video="person.video"
-            :title="`Interview with ${person.name}`"
-            :episode="person.episode"
-          />
-        </div>
-
         <section class="bio" v-reveal>
           <h2>About</h2>
           <p>{{ person.intro }}</p>
@@ -100,7 +102,7 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
           <cite>{{ person.name }}</cite>
         </blockquote>
 
-        <section v-if="transcript.length" class="transcript">
+        <section v-if="transcript.length" class="transcript" v-reveal>
           <details class="ts">
             <summary class="ts-summary">
               <h2>Full transcript</h2>
@@ -112,7 +114,7 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
           </details>
         </section>
 
-        <nav class="pager" aria-label="More episodes">
+        <nav class="pager" aria-label="More episodes" v-reveal>
           <router-link
             v-if="neighbors.prev"
             :to="`/interviews/${neighbors.prev.id}`"
@@ -143,7 +145,45 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
 
 <style scoped>
 .detail {
-  padding: calc(var(--nav-h) + 48px) 0 96px;
+  padding-bottom: 96px;
+}
+
+/* cinematic hero: header + full-width video over a soft aura */
+.detail-hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + 40px);
+}
+
+.detail-hero::before {
+  content: '';
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  width: 900px;
+  max-width: 94%;
+  height: 460px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(91, 130, 255, 0.15), transparent 66%);
+  filter: blur(26px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.detail-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.video-wrap {
+  margin-top: 30px;
+}
+
+.video-wrap :deep(.player) {
+  box-shadow: 0 24px 60px rgba(20, 22, 26, 0.14);
+}
+
+:root[data-theme='dark'] .video-wrap :deep(.player) {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 }
 
 .detail-grid {
@@ -151,7 +191,12 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
   grid-template-columns: minmax(0, 1fr) 360px;
   gap: 56px;
   align-items: start;
-  margin-top: 28px;
+  margin-top: 56px;
+}
+
+/* video no longer leads the article — don't push the first section down */
+.detail-grid article > :first-child {
+  margin-top: 0;
 }
 
 /* header */

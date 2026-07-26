@@ -42,15 +42,25 @@ useSeo(homeSeo(interviews))
   <main>
     <!-- hero -->
     <section class="hero">
-      <div class="container">
-        <h1 class="rise r1">What engineers<br />actually do.</h1>
-        <p class="hero-sub rise r2">
-          Student-run interviews about the day-to-day life behind engineering
-          careers — from NASA to Google to ISRO.
-        </p>
-        <div class="hero-cta rise r3">
-          <a href="#interviews" class="btn btn-ink">Explore interviews</a>
-          <a href="#ask" class="link-arrow">Ask the AI →</a>
+      <div class="hero-aura" aria-hidden="true">
+        <span class="blob b1"></span>
+        <span class="blob b2"></span>
+        <span class="blob b3"></span>
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <p class="hero-eyebrow rise r1">Student-run engineering interviews</p>
+          <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
+          <p class="hero-sub rise r3">
+            The day-to-day life behind engineering careers — real people, real work,
+            from NASA to Google to ISRO. Watch the interviews, or just ask.
+          </p>
+          <div class="hero-cta rise r4">
+            <a href="#interviews" class="btn btn-ink">Explore interviews</a>
+          </div>
+        </div>
+        <div id="ask" class="hero-chat rise r3">
+          <ChatPanel variant="panel" :suggestions="homeQuestions" />
         </div>
       </div>
     </section>
@@ -68,19 +78,6 @@ useSeo(homeSeo(interviews))
             :person="p"
             v-reveal="(i % 3) * 80"
           />
-        </div>
-      </div>
-    </section>
-
-    <!-- ask -->
-    <section id="ask" class="section ask">
-      <div class="container">
-        <div class="section-head" v-reveal>
-          <h2>Ask the AI</h2>
-          <p>Answers come from the six interviews, with sources.</p>
-        </div>
-        <div class="ask-panel" v-reveal="100">
-          <ChatPanel variant="panel" :suggestions="homeQuestions" />
         </div>
       </div>
     </section>
@@ -115,21 +112,129 @@ useSeo(homeSeo(interviews))
 <style scoped>
 /* hero */
 .hero {
-  padding: calc(var(--nav-h) + 108px) 0 40px;
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 66px) 0 82px;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero-chat {
+  min-width: 0;
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    padding: calc(var(--nav-h) + 72px) 0 56px;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  /* keep the AI chat visible on smaller screens — it's the headline feature */
+  .hero-chat {
+    max-width: 560px;
+  }
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6.5vw, 64px);
+  font-size: clamp(44px, 7.2vw, 74px);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.grad {
+  background: linear-gradient(100deg, var(--accent), #6a5cff 52%, #17b6d6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-sub {
-  max-width: 460px;
+  max-width: 480px;
   color: var(--muted);
-  font-size: 17px;
-  margin-top: 22px;
+  font-size: 17.5px;
+  margin-top: 24px;
+}
+
+/* animated aurora backdrop */
+.hero-aura {
+  position: absolute;
+  inset: -25% -10% auto -10%;
+  height: 150%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.42;
+}
+
+:root[data-theme='dark'] .hero-aura {
+  opacity: 0.58;
+}
+
+.blob {
+  position: absolute;
+  width: 44vw;
+  max-width: 580px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.b1 {
+  left: -6%;
+  top: -8%;
+  background: radial-gradient(circle, #2f5cff, transparent 68%);
+  animation: drift1 19s ease-in-out infinite;
+}
+
+.b2 {
+  right: -4%;
+  top: 2%;
+  background: radial-gradient(circle, #8b5cf6, transparent 68%);
+  animation: drift2 23s ease-in-out infinite;
+}
+
+.b3 {
+  left: 26%;
+  top: 22%;
+  background: radial-gradient(circle, #06b6d4, transparent 70%);
+  animation: drift3 27s ease-in-out infinite;
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6%, 8%); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-7%, 6%); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5%, -6%); }
 }
 
 .hero-cta {
@@ -147,6 +252,7 @@ useSeo(homeSeo(interviews))
 .r1 { animation-delay: 0.05s; }
 .r2 { animation-delay: 0.15s; }
 .r3 { animation-delay: 0.25s; }
+.r4 { animation-delay: 0.35s; }
 
 @keyframes rise {
   from { opacity: 0; transform: translateY(16px); }
@@ -192,7 +298,7 @@ useSeo(homeSeo(interviews))
   padding: 22px 24px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--card);
 }
 
 .avatar {
@@ -251,6 +357,9 @@ useSeo(homeSeo(interviews))
 
 @media (prefers-reduced-motion: reduce) {
   .rise {
+    animation: none;
+  }
+  .blob {
     animation: none;
   }
 }

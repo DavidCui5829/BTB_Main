@@ -135,7 +135,7 @@ onMounted(() => {
   flex-direction: column;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--card);
   overflow: hidden;
 }
 
@@ -256,13 +256,13 @@ onMounted(() => {
 }
 
 .msg--error .bubble {
-  background: #fdf2f2;
-  border: 1px solid #f3d4d4;
-  color: #a04545;
+  background: rgba(214, 78, 78, 0.12);
+  border: 1px solid rgba(214, 78, 78, 0.3);
+  color: #d76b6b;
 }
 
 .bubble :deep(code) {
-  background: rgba(25, 26, 28, 0.06);
+  background: rgba(127, 127, 127, 0.16);
   padding: 1px 6px;
   border-radius: 6px;
   font-size: 13px;
@@ -350,7 +350,7 @@ onMounted(() => {
 .chat-input textarea:focus {
   outline: none;
   border-color: var(--border-strong);
-  background: #fff;
+  background: var(--card);
 }
 
 .chat-input textarea::placeholder {
@@ -376,6 +376,14 @@ onMounted(() => {
 .send-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+/* In dark mode the send button becomes a light chip with a dark glyph. */
+:root[data-theme='dark'] .send-btn {
+  color: #0b0e14;
+}
+:root[data-theme='dark'] .send-btn:hover:not(:disabled) {
+  background: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,21 @@
     <meta name="google-site-verification" content="iv8nf68U_bQ-dGZ9_dF-IX4BsL-k5eU2_59h1Ksvdgc" />
     <meta name="theme-color" content="#fcfcfb" />
 
+    <!-- Apply the saved/preferred theme before first paint (no flash of light). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('btb-theme')
+          if (t !== 'light' && t !== 'dark') {
+            t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          }
+          document.documentElement.dataset.theme = t
+          var m = document.querySelector('meta[name="theme-color"]')
+          if (m) m.setAttribute('content', t === 'dark' ? '#0b0e14' : '#fcfcfb')
+        } catch (e) {}
+      })()
+    </script>
+
     <!-- Per-route SEO. Everything between the markers is baked per page at
          build time (src/lib/seo.js + the btb-prerender plugin) and updated at
          runtime by useSeo(). Keep the markers. -->

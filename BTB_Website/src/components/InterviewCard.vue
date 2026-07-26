@@ -1,18 +1,31 @@
 <script setup>
 import { computed } from 'vue'
-import { videoThumbnail } from '../lib/video'
+import { videoThumbnailHi, videoThumbnailMq } from '../lib/video'
 import { orgLogo } from '../lib/logos'
 
 const props = defineProps({
   person: { type: Object, required: true },
 })
 
-const thumb = computed(() => videoThumbnail(props.person.video) || '/btb-cover.png')
+const thumb = computed(() => videoThumbnailHi(props.person.video) || '/btb-cover.png')
+const thumbMq = computed(() => videoThumbnailMq(props.person.video))
 const logo = computed(() => orgLogo(props.person.org))
 
 // Hide a logo that fails to load rather than showing a broken image.
 function hideBroken(e) {
   e.target.style.display = 'none'
+}
+
+// maxresdefault isn't guaranteed: YouTube may 404 or serve a 120x90 gray
+// placeholder. Detect either (error, or a tiny naturalWidth) and fall back to
+// the always-present, bar-free mqdefault.
+function onThumb(e) {
+  const img = e.target
+  if (img.dataset.fallback) return
+  if (e.type === 'error' || img.naturalWidth <= 120) {
+    img.dataset.fallback = '1'
+    if (thumbMq.value) img.src = thumbMq.value
+  }
 }
 </script>
 
@@ -25,6 +38,8 @@ function hideBroken(e) {
         loading="lazy"
         width="480"
         height="270"
+        @load="onThumb"
+        @error="onThumb"
       />
       <span class="ep-badge meta">EP {{ String(person.episode).padStart(2, '0') }}</span>
       <span class="play" aria-hidden="true">
@@ -59,7 +74,7 @@ function hideBroken(e) {
   flex-direction: column;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--card);
   overflow: hidden;
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -70,11 +85,15 @@ function hideBroken(e) {
   box-shadow: 0 10px 28px rgba(20, 22, 26, 0.09);
 }
 
+:root[data-theme='dark'] .card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(91, 130, 255, 0.15);
+}
+
 /* thumbnail */
 .thumb {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #edeef0;
+  background: var(--surface);
   overflow: hidden;
 }
 
@@ -83,15 +102,27 @@ function hideBroken(e) {
   height: 100%;
   object-fit: cover;
   display: block;
+  /* slight over-crop hides any thin letterbox sliver at the edges */
+  transform: scale(1.02);
   transition: transform 0.45s ease;
 }
 
 .card:hover .thumb img {
-  transform: scale(1.045);
+  transform: scale(1.06);
+}
+
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(10, 12, 18, 0.28), transparent 45%);
+  pointer-events: none;
 }
 
 .ep-badge {
   position: absolute;
+  z-index: 2;
   top: 10px;
   left: 10px;
   background: rgba(15, 17, 20, 0.66);
@@ -104,6 +135,7 @@ function hideBroken(e) {
 
 .play {
   position: absolute;
+  z-index: 2;
   inset: 0;
   margin: auto;
   width: 52px;
