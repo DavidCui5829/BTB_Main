@@ -4,7 +4,11 @@ import { interviews } from '../data/interviews'
 import { useSeo } from '../composables/useSeo'
 import { homeSeo } from '../lib/seo'
 import InterviewCard from '../components/InterviewCard.vue'
+import FeaturedEpisode from '../components/FeaturedEpisode.vue'
 import ChatPanel from '../components/ChatPanel.vue'
+
+// Latest episode, spotlighted below the hero (still appears in the grid too).
+const featured = [...interviews].sort((a, b) => (b.episode || 0) - (a.episode || 0))[0]
 
 const homeQuestions = [
   'What does a typical day look like for a NASA engineer?',
@@ -63,8 +67,8 @@ useSeo(homeSeo(interviews))
           <p class="hero-eyebrow rise r1">Created by students, for students</p>
           <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
           <p class="hero-sub rise r3">
-            Real interviews with engineers at NASA, Google and ISRO — plus an AI
-            trained on all of them.
+            Real interviews with engineers at NASA, Google and ISRO — then talk to
+            our Personalized AI, trained on all of them.
           </p>
           <div class="hero-cta rise r4">
             <a href="#interviews" class="btn btn-ink">Explore interviews</a>
@@ -76,11 +80,14 @@ useSeo(homeSeo(interviews))
       </div>
     </section>
 
-    <!-- interviews -->
+    <!-- latest + interviews -->
     <section id="interviews" class="section">
       <div class="container">
+        <div class="home-featured" v-reveal>
+          <FeaturedEpisode :person="featured" />
+        </div>
         <div class="section-head" v-reveal>
-          <h2>Interviews</h2>
+          <h2>All interviews</h2>
         </div>
         <div class="cards-grid">
           <InterviewCard
@@ -310,6 +317,10 @@ useSeo(homeSeo(interviews))
 }
 
 /* interviews */
+.home-featured {
+  margin-bottom: 44px;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
