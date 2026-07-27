@@ -12,19 +12,22 @@ const homeQuestions = [
   'What advice do they have for students?',
 ]
 
-const hosts = [
-  {
-    name: 'Joshua Babalola',
-    role: 'Co-host',
-    portfolio: '',
-    email: '',
-  },
+// David first — he designed and built the site and the AI.
+const team = [
   {
     name: 'David Cui',
-    role: 'Co-host',
+    role: 'Builder & co-host',
+    note: 'Designed and built this website and the Personalized AI from scratch.',
     portfolio: 'https://dczhportfolio.vercel.app/',
     email: 'davidcuizhh1@gmail.com',
     photo: '/hosts/david-cui.jpg',
+  },
+  {
+    name: 'Joshua Babalola',
+    role: 'Co-host',
+    note: '',
+    portfolio: '',
+    email: '',
   },
 ]
 
@@ -91,35 +94,53 @@ useSeo(homeSeo(interviews))
       </div>
     </section>
 
-    <!-- hosts -->
-    <section id="hosts" class="section hosts">
+    <!-- about / story -->
+    <section id="about" class="section about">
       <div class="container">
         <div class="section-head" v-reveal>
-          <h2>The hosts</h2>
-          <p>The students behind Beyond the Blueprint.</p>
+          <h2>Why we built this</h2>
         </div>
-        <div class="hosts-grid">
-          <div v-for="(h, i) in hosts" :key="h.name" class="host-card" v-reveal="i * 80">
+
+        <div class="about-story" v-reveal>
+          <p class="lead">
+            Beyond the Blueprint started with a question we kept asking ourselves:
+            what do engineers <em>actually</em> do all day? Course catalogs and
+            rankings never answered it — so we went and asked.
+          </p>
+          <p>
+            We sit down with engineers at NASA, Google, ISRO and beyond and capture
+            the honest, day-to-day reality of their work. Then we built a personalized
+            AI, trained on every interview, so any student can ask their own questions
+            and get answers grounded in real conversations.
+          </p>
+          <p>
+            We're students ourselves — and we made this for students: a free, honest
+            look at engineering careers, straight from the people living them.
+          </p>
+        </div>
+
+        <h3 class="team-heading" v-reveal>The students behind it</h3>
+        <div class="team" v-reveal="80">
+          <article v-for="h in team" :key="h.name" class="team-card">
             <img
               v-if="h.photo && !brokenPhoto[h.name]"
-              class="avatar avatar-photo"
+              class="team-avatar"
               :src="h.photo"
               :alt="h.name"
               loading="lazy"
               @error="onPhotoError(h.name)"
             />
-            <span v-else class="avatar" aria-hidden="true">{{ initials(h.name) }}</span>
-            <div class="host-info">
+            <span v-else class="team-avatar team-monogram" aria-hidden="true">{{ initials(h.name) }}</span>
+            <div class="team-info">
               <strong>{{ h.name }}</strong>
-              <span class="host-role">{{ h.role }}</span>
-              <div v-if="h.portfolio || h.email" class="host-links">
-                <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">
-                  Portfolio ↗
-                </a>
-                <a v-if="h.email" :href="`mailto:${h.email}`">{{ h.email }}</a>
+              <span class="team-role">{{ h.role }}</span>
+              <p v-if="h.note" class="team-note">{{ h.note }}</p>
+              <div v-if="h.portfolio || h.email" class="team-links">
+                <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">Portfolio ↗</a>
+                <a v-if="h.email" :href="`mailto:${h.email}`">Email</a>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -313,80 +334,120 @@ useSeo(homeSeo(interviews))
   max-width: 680px;
 }
 
-/* hosts */
-.hosts-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 320px));
-  gap: 16px;
+/* about / story */
+.about-story {
+  max-width: 680px;
+  margin-bottom: 48px;
 }
 
-.host-card {
+.about-story .lead {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.about-story .lead em {
+  font-style: italic;
+}
+
+.about-story p:not(.lead) {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 14px;
+  max-width: 640px;
+}
+
+.team-heading {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 18px;
+}
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 400px));
+  gap: 18px;
+}
+
+.team-card {
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
-  gap: 16px;
-  padding: 22px 24px;
+  gap: 18px;
+  padding: 24px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--card);
 }
 
-.avatar {
+.team-avatar {
   flex: none;
-  width: 46px;
-  height: 46px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background: var(--surface);
+}
+
+.team-monogram {
   display: grid;
   place-items: center;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 650;
   color: #fff;
   letter-spacing: 0.02em;
   background: linear-gradient(135deg, var(--accent), #16307a);
 }
 
-.avatar-photo {
-  object-fit: cover;
-  object-position: center;
-  background: var(--surface);
-}
-
-.host-info {
+.team-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
-.host-card strong {
-  font-size: 16.5px;
+.team-info strong {
+  font-size: 17px;
   font-weight: 650;
 }
 
-.host-role {
+.team-role {
   font-size: 13.5px;
-  color: var(--faint);
-}
-
-.host-links {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 12px;
-  font-size: 14px;
-}
-
-.host-links a {
-  color: var(--muted);
-  width: fit-content;
-  transition: color 0.2s ease;
-}
-
-.host-links a:hover {
+  font-weight: 550;
   color: var(--accent);
 }
 
-@media (max-width: 620px) {
-  .hosts-grid {
+.team-note {
+  margin-top: 7px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.team-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 13.5px;
+}
+
+.team-links a {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.team-links a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .team {
     grid-template-columns: 1fr;
   }
 }

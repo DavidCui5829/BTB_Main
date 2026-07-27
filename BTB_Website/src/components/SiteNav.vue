@@ -24,6 +24,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <nav class="nav-links" aria-label="Main">
         <router-link :to="{ path: '/', hash: '#interviews' }">Interviews</router-link>
         <router-link :to="{ path: '/', hash: '#ask' }">Ask AI</router-link>
+        <router-link :to="{ path: '/', hash: '#about' }">About</router-link>
       </nav>
 
       <button
