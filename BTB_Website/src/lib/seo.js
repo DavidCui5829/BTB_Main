@@ -14,9 +14,9 @@ export const SITE = {
 }
 
 export const HOME_DESCRIPTION =
-  'Student-run video interviews with engineers and professionals from NASA, ' +
-  'Google, ISRO, Honeywell and more — the real day-to-day behind engineering ' +
-  'careers. Watch every episode and ask the AI, answered with sources.'
+  'Created by students, for students — real video interviews with engineers at ' +
+  'NASA, Google and ISRO, plus a personalized AI that answers your ' +
+  'engineering-career questions from every conversation.'
 
 // Trim to a clean, meta-description-friendly length on a word boundary.
 export function clamp(text, max = 160) {

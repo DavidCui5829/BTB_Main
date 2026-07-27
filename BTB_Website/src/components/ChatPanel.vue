@@ -59,8 +59,13 @@ onMounted(() => {
 <template>
   <div class="chat" :class="`chat--${variant}`">
     <header class="chat-head">
-      <strong>BTB Assistant</strong>
-      <span>Answers cite the interviews</span>
+      <span class="ai-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+          <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" />
+        </svg>
+      </span>
+      <strong>Personalized AI</strong>
+      <span class="ai-sub">Trained on every interview</span>
       <button
         v-if="state.messages.length"
         class="clear-btn"
@@ -131,12 +136,25 @@ onMounted(() => {
 
 <style scoped>
 .chat {
+  position: relative;
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--card);
   overflow: hidden;
+}
+
+/* gradient accent bar across the top of the panel */
+.chat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #8b5cf6 50%, #06b6d4);
+  z-index: 2;
 }
 
 .chat--panel {
@@ -147,13 +165,30 @@ onMounted(() => {
   height: min(620px, calc(100vh - 120px));
 }
 
+@media (max-width: 720px) {
+  .chat--panel {
+    height: min(440px, 60vh);
+  }
+}
+
 /* head */
 .chat-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
   padding: 14px 18px;
   border-bottom: 1px solid var(--border);
+}
+
+.ai-badge {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 6px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
 }
 
 .chat-head strong {
@@ -161,7 +196,7 @@ onMounted(() => {
   font-weight: 650;
 }
 
-.chat-head > span {
+.chat-head .ai-sub {
   font-size: 12.5px;
   color: var(--faint);
 }

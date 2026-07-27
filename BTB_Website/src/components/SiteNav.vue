@@ -171,8 +171,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 }
 
 @media (max-width: 560px) {
+  .nav-inner {
+    gap: 14px;
+  }
+  /* logo-only on phones — the full wordmark + links + toggle won't fit */
   .brand-name {
-    font-size: 14.5px;
+    display: none;
   }
   .nav-links {
     gap: 18px;

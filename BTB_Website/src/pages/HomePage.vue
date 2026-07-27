@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { interviews } from '../data/interviews'
 import { useSeo } from '../composables/useSeo'
 import { homeSeo } from '../lib/seo'
@@ -23,8 +24,15 @@ const hosts = [
     role: 'Co-host',
     portfolio: 'https://dczhportfolio.vercel.app/',
     email: 'davidcuizhh1@gmail.com',
+    photo: '/hosts/david-cui.jpg',
   },
 ]
+
+// Fall back to the monogram avatar if a host photo is missing.
+const brokenPhoto = ref({})
+function onPhotoError(name) {
+  brokenPhoto.value = { ...brokenPhoto.value, [name]: true }
+}
 
 function initials(name) {
   return name
@@ -49,11 +57,12 @@ useSeo(homeSeo(interviews))
       </div>
       <div class="container hero-inner">
         <div class="hero-content">
-          <p class="hero-eyebrow rise r1">Student-run engineering interviews</p>
+          <p class="hero-eyebrow rise r1">Created by students, for students</p>
           <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
           <p class="hero-sub rise r3">
-            The day-to-day life behind engineering careers — real people, real work,
-            from NASA to Google to ISRO. Watch the interviews, or just ask.
+            Students sit down with engineers from NASA, Google and ISRO to show what
+            the work is really like — then a personalized AI answers your questions
+            from every conversation.
           </p>
           <div class="hero-cta rise r4">
             <a href="#interviews" class="btn btn-ink">Explore interviews</a>
@@ -91,7 +100,15 @@ useSeo(homeSeo(interviews))
         </div>
         <div class="hosts-grid">
           <div v-for="(h, i) in hosts" :key="h.name" class="host-card" v-reveal="i * 80">
-            <span class="avatar" aria-hidden="true">{{ initials(h.name) }}</span>
+            <img
+              v-if="h.photo && !brokenPhoto[h.name]"
+              class="avatar avatar-photo"
+              :src="h.photo"
+              :alt="h.name"
+              loading="lazy"
+              @error="onPhotoError(h.name)"
+            />
+            <span v-else class="avatar" aria-hidden="true">{{ initials(h.name) }}</span>
             <div class="host-info">
               <strong>{{ h.name }}</strong>
               <span class="host-role">{{ h.role }}</span>
@@ -145,6 +162,19 @@ useSeo(homeSeo(interviews))
   /* keep the AI chat visible on smaller screens — it's the headline feature */
   .hero-chat {
     max-width: 560px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding: calc(var(--nav-h) + 34px) 0 44px;
+  }
+  .hero-sub {
+    font-size: 16px;
+  }
+  /* full-width, thumb-friendly CTA on phones */
+  .hero-cta .btn {
+    width: 100%;
   }
 }
 
@@ -313,6 +343,12 @@ useSeo(homeSeo(interviews))
   color: #fff;
   letter-spacing: 0.02em;
   background: linear-gradient(135deg, var(--accent), #16307a);
+}
+
+.avatar-photo {
+  object-fit: cover;
+  object-position: center;
+  background: var(--surface);
 }
 
 .host-info {
