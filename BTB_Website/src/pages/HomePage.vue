@@ -63,9 +63,8 @@ useSeo(homeSeo(interviews))
           <p class="hero-eyebrow rise r1">Created by students, for students</p>
           <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
           <p class="hero-sub rise r3">
-            Students sit down with engineers from NASA, Google and ISRO to show what
-            the work is really like — then a personalized AI answers your questions
-            from every conversation.
+            Real interviews with engineers at NASA, Google and ISRO — plus an AI
+            trained on all of them.
           </p>
           <div class="hero-cta rise r4">
             <a href="#interviews" class="btn btn-ink">Explore interviews</a>
