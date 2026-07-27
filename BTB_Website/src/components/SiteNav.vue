@@ -16,7 +16,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 <template>
   <header class="nav" :class="{ 'nav--scrolled': scrolled }">
     <div class="container nav-inner">
-      <router-link to="/" class="brand" aria-label="Beyond the Blueprint — home">
+      <router-link to="/" class="brand" aria-label="Beyond the Blueprint home">
         <img src="/btb-cover.png" class="brand-mark" alt="" />
         <span class="brand-name">Beyond the Blueprint</span>
       </router-link>

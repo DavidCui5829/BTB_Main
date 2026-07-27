@@ -67,7 +67,7 @@ useSeo(homeSeo(interviews))
           <p class="hero-eyebrow rise r1">Created by students, for students</p>
           <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
           <p class="hero-sub rise r3">
-            Real interviews with engineers at NASA, Google and ISRO — then talk to
+            Real interviews with engineers at NASA, Google and ISRO. Then talk to
             our Personalized AI, trained on all of them.
           </p>
           <div class="hero-cta rise r4">
@@ -111,7 +111,7 @@ useSeo(homeSeo(interviews))
           <p class="lead">
             Beyond the Blueprint started with a question we kept asking ourselves:
             what do engineers <em>actually</em> do all day? Course catalogs and
-            rankings never answered it — so we went and asked.
+            rankings never answered it, so we went and asked.
           </p>
           <p>
             We sit down with engineers at NASA, Google, ISRO and beyond and capture
@@ -120,7 +120,7 @@ useSeo(homeSeo(interviews))
             and get answers grounded in real conversations.
           </p>
           <p>
-            We're students ourselves — and we made this for students: a free, honest
+            We're students ourselves, and we made this for students: a free, honest
             look at engineering careers, straight from the people living them.
           </p>
         </div>

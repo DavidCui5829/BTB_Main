@@ -14,7 +14,7 @@ export const SITE = {
 }
 
 export const HOME_DESCRIPTION =
-  'Created by students, for students — real video interviews with engineers at ' +
+  'Created by students, for students. Real video interviews with engineers at ' +
   'NASA, Google and ISRO, plus a personalized AI that answers your ' +
   'engineering-career questions from every conversation.'
 
@@ -30,7 +30,7 @@ export function clamp(text, max = 160) {
 // SEO descriptor for the homepage.
 export function homeSeo(interviews) {
   return {
-    title: 'Beyond the Blueprint — What Engineers Actually Do',
+    title: 'Beyond the Blueprint: What Engineers Actually Do',
     description: HOME_DESCRIPTION,
     path: '/',
     type: 'website',
@@ -45,7 +45,7 @@ export function homeSeo(interviews) {
         '@type': 'ListItem',
         position: p.episode ?? i + 1,
         url: `${SITE.url}/interviews/${p.id}`,
-        name: `${p.name} — ${p.role}, ${p.org}`,
+        name: `${p.name} · ${p.role}, ${p.org}`,
       })),
     },
   }
@@ -59,7 +59,7 @@ export function interviewSeo(p) {
   const ytId = youtubeId(p.video)
 
   return {
-    title: `${p.name} — ${p.role}, ${p.org} | Beyond the Blueprint`,
+    title: `${p.name} · ${p.role}, ${p.org} | Beyond the Blueprint`,
     description: clamp(`${p.role} at ${p.org}. ${p.intro}`),
     path: `/interviews/${p.id}`,
     image,
@@ -91,7 +91,7 @@ export function interviewSeo(p) {
           ...(p.video && {
             video: {
               '@type': 'VideoObject',
-              name: `Beyond the Blueprint — ${p.name}`,
+              name: `Beyond the Blueprint: ${p.name}`,
               description: clamp(p.intro, 300),
               thumbnailUrl: image,
               ...(p.date && { uploadDate: p.date }),
@@ -203,12 +203,12 @@ export function renderHomeBody(interviews) {
   const items = interviews
     .map(
       (p) =>
-        `<li><a href="/interviews/${p.id}">${esc(p.name)} — ${esc(p.role)}, ${esc(p.org)}</a></li>`
+        `<li><a href="/interviews/${p.id}">${esc(p.name)} · ${esc(p.role)}, ${esc(p.org)}</a></li>`
     )
     .join('')
   return [
     `<main><div class="container">`,
-    `<h1>${esc(SITE.name)} — What Engineers Actually Do</h1>`,
+    `<h1>${esc(SITE.name)}: What Engineers Actually Do</h1>`,
     `<p>${esc(HOME_DESCRIPTION)}</p>`,
     `<h2>Interviews</h2>`,
     `<ul>${items}</ul>`,

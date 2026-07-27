@@ -31,7 +31,7 @@ function onThumb(e) {
     <div class="feature-thumb">
       <img
         :src="thumb"
-        :alt="`${person.name} — ${person.org} interview`"
+        :alt="`${person.name}, ${person.org} interview`"
         loading="lazy"
         width="640"
         height="360"

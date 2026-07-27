@@ -171,7 +171,7 @@ onBeforeRouteLeave(() => {
 })
 
 onMounted(() => {
-  document.title = 'Admin — Beyond the Blueprint'
+  document.title = 'Admin | Beyond the Blueprint'
   window.addEventListener('beforeunload', onBeforeUnload)
   load()
 })
@@ -220,10 +220,10 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', onBeforeUnload)
 
       <p v-if="saveState === 'error'" class="notice notice--err">{{ saveError }}</p>
       <p v-else-if="saveState === 'saved'" class="notice notice--ok">
-        Saved — the site is up to date.
+        Saved. The site is up to date.
       </p>
       <p v-else-if="dirty" class="notice notice--dirty">
-        Unsaved changes — nothing touches the site until you press “Save changes”.
+        Unsaved changes. Nothing touches the site until you press “Save changes”.
       </p>
 
       <div v-if="loadState === 'loading'" class="empty">Loading interviews…</div>
@@ -286,7 +286,7 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', onBeforeUnload)
               <input v-model="item.field" placeholder="e.g. Aerospace" />
             </label>
             <label class="f">
-              <span>Video <em>YouTube URL or /videos/File.mp4 — blank for placeholder</em></span>
+              <span>Video <em>YouTube URL or /videos/File.mp4 (blank for placeholder)</em></span>
               <input v-model="item.video" />
             </label>
 
