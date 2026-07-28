@@ -125,7 +125,7 @@ def deepseek_classify(text, taxonomy):
     payload = {
         "model": DEEPSEEK_MODEL,
         "temperature": 0,
-        "max_tokens": 60,
+        "max_tokens": 400,  # v4 models spend tokens reasoning before the JSON
         "messages": [
             {"role": "system", "content": _SYSTEM.format(categories=categories)},
             {"role": "user", "content": text[:2500]},

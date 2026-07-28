@@ -39,6 +39,7 @@ TARGETS = {
     "MutaharMehkri": "MutaharMehkri/Interview with Nasa Aerospace Engineer Mutahar Mehkri - BeyondtheBlueprint (128k).mp3",
     "NandiniHarinath": "NandiniHarinath/Interview with ISRO Aerospace Engineer_ Nandini Harinath..mp3",
     "XavierEldridge": "XavierEldridge/XavierEldridgeAudio.mp3",
+    "NancyLi": "NancyLi/Interview with Pipeline Engineer_ Nancy Li.mp3",
 }
 
 

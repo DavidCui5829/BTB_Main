@@ -36,6 +36,8 @@ BTB_AI/vectorstore/
 *.mov
 *.wav
 *.m4a
+*.mp3
+*.flac
 BTB_Clips/
 BTB_Prepare/**/clips/
 

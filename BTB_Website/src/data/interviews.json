@@ -142,5 +142,29 @@
       "How does Michael use AI at work?",
       "What should CS students focus on today?"
     ]
+  },
+  {
+    "id": "nancy-li",
+    "ragId": "NancyLi",
+    "episode": 7,
+    "name": "Nancy Li",
+    "role": "Integrity Tech Services Engineer",
+    "org": "Phillips 66",
+    "field": "Pipeline Integrity",
+    "video": "https://youtu.be/tO72NlY86Jw?si=RFRmgBUwC8gNCSX3",
+    "date": "2026-07-28T13:15:21-07:00",
+    "intro": "Nancy Li is an Integrity Tech Services Engineer at Phillips 66. She earned a master's in mechanical engineering but didn't plan to be an engineer growing up. Now she works on pipeline integrity and maintenance, ensuring projects are safe and reliable. Her path shows that engineering can start with a hands-on project that makes classroom knowledge feel real.",
+    "highlights": [
+      "Unexpected path to engineering",
+      "Hands-on project that clicked",
+      "Importance of communication and teamwork",
+      "Learning from challenges and failures"
+    ],
+    "quote": "I can bring my knowledge into the real world.",
+    "questions": [
+      "How did you go from not picturing yourself as an engineer to becoming one?",
+      "What does a typical day look like for an integrity tech services engineer?",
+      "What non-technical skills are most important in your job?"
+    ]
   }
 ]
