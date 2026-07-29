@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import { videoThumbnailHi, videoThumbnailMq } from '../lib/video'
 import { orgLogo } from '../lib/logos'
+import { useI18n } from '../composables/useI18n'
+
+const { t, tc } = useI18n()
 
 const props = defineProps({
   person: { type: Object, required: true },
@@ -38,14 +41,14 @@ function onThumb(e) {
         @load="onThumb"
         @error="onThumb"
       />
-      <span class="feature-badge">◆ Latest · EP {{ String(person.episode).padStart(2, '0') }}</span>
+      <span class="feature-badge">◆ {{ t('featured.latest') }} · EP {{ String(person.episode).padStart(2, '0') }}</span>
       <span class="play" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
       </span>
     </div>
 
     <div class="feature-body">
-      <span class="feature-field meta">{{ person.field }}</span>
+      <span class="feature-field meta">{{ tc(person, 'field') }}</span>
       <h3>{{ person.name }}</h3>
       <p class="feature-role">
         <img
@@ -58,10 +61,10 @@ function onThumb(e) {
           loading="lazy"
           @error="hideBroken"
         />
-        <span>{{ person.role }} · {{ person.org }}</span>
+        <span>{{ tc(person, 'role') }} · {{ person.org }}</span>
       </p>
-      <p class="feature-intro">{{ person.intro }}</p>
-      <span class="feature-cta">Watch episode →</span>
+      <p class="feature-intro">{{ tc(person, 'intro') }}</p>
+      <span class="feature-cta">{{ t('featured.watch') }} →</span>
     </div>
   </router-link>
 </template>

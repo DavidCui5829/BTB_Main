@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e 'let d=\"\";process.stdin.on(\"data\",c=>d+=c).on(\"end\",()=>{try{const j=JSON.parse(d);const f=(j.tool_input&&j.tool_input.file_path)||\"\";if(/interviews\\.json$/i.test(f)){process.stdout.write(JSON.stringify({systemMessage:\"i18n reminder: add fr/es/zh translations for the new interview to BTB_Website/src/i18n/interview-content.js (field, role, intro, highlights, quote). Missing entries fall back to English.\"}))}}catch(e){}})'"
+          }
+        ]
+      }
+    ]
+  }
+}

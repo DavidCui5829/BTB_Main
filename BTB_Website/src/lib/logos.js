@@ -9,6 +9,7 @@ const ORG_DOMAINS = [
   [/honeywell/i, 'honeywell.com'],
   [/isro/i, 'www.isro.gov.in'],
   [/\bgtt\b/i, 'gtt.fr'], // Gaztransport & Technigaz (gtt.com is a different co.)
+  [/phillips\s*66|\bp66\b/i, 'phillips66.com'],
   [/awty/i, 'awty.org'],
 ]
 

@@ -77,10 +77,23 @@
     <link rel="apple-touch-icon" href="/btb-cover.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Load Inter WITHOUT blocking first paint. The print-media + onload swap
+         lets the page render immediately in the system-ui fallback (already in
+         the font stack), then Inter swaps in when it arrives. This is the main
+         LCP win: a render-blocking font stylesheet stalls first paint for
+         seconds whenever fonts.googleapis.com is slow (the P90/P99 tail). -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="app"></div>

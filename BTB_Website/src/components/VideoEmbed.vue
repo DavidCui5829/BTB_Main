@@ -1,5 +1,8 @@
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   video: { type: String, default: '' },
@@ -35,7 +38,7 @@ const embedUrl = computed(() => {
 
     <div v-else class="placeholder">
       <span class="meta">EP {{ String(episode).padStart(2, '0') }}</span>
-      <p>Video coming soon</p>
+      <p>{{ t('video.comingSoon') }}</p>
     </div>
   </div>
 </template>

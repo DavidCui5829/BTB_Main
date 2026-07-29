@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { interviews, getInterview } from '../data/interviews'
 import { loadTranscript } from '../data/transcript'
 import { useSeo } from '../composables/useSeo'
+import { useI18n } from '../composables/useI18n'
 import { interviewSeo } from '../lib/seo'
 import { orgLogo } from '../lib/logos'
 import ChatPanel from '../components/ChatPanel.vue'
@@ -14,6 +15,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const { t, tc } = useI18n()
 const person = computed(() => getInterview(props.id))
 
 // Full transcript — lazily loaded per episode. Kept in the DOM (inside <details>)
@@ -47,12 +49,12 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
     <div class="detail-hero">
       <div class="container">
         <router-link :to="{ path: '/', hash: '#interviews' }" class="back">
-          ← Interviews
+          ← {{ t('interview.back') }}
         </router-link>
 
         <header class="head">
           <p class="meta head-meta" v-reveal>
-            EP {{ String(person.episode).padStart(2, '0') }} · {{ person.field }}
+            EP {{ String(person.episode).padStart(2, '0') }} · {{ tc(person, 'field') }}
           </p>
           <h1 v-reveal="50">{{ person.name }}</h1>
           <p class="byline" v-reveal="90">
@@ -65,7 +67,7 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
               height="22"
               @error="(e) => (e.target.style.display = 'none')"
             />
-            <span>{{ person.role }} · {{ person.org }}</span>
+            <span>{{ tc(person, 'role') }} · {{ person.org }}</span>
           </p>
         </header>
       </div>
@@ -73,7 +75,7 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
       <div class="container video-wrap" v-reveal="120">
         <VideoEmbed
           :video="person.video"
-          :title="`Interview with ${person.name}`"
+          :title="t('interview.videoTitle', { name: person.name })"
           :episode="person.episode"
         />
       </div>
@@ -83,14 +85,14 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
       <!-- main column -->
       <article>
         <section class="bio" v-reveal>
-          <h2>About</h2>
-          <p>{{ person.intro }}</p>
+          <h2>{{ t('interview.about') }}</h2>
+          <p>{{ tc(person, 'intro') }}</p>
         </section>
 
         <section class="highlights" v-reveal>
-          <h2>In this episode</h2>
+          <h2>{{ t('interview.inEpisode') }}</h2>
           <ol>
-            <li v-for="(h, i) in person.highlights" :key="i">
+            <li v-for="(h, i) in tc(person, 'highlights')" :key="i">
               <span class="hl-num meta">{{ String(i + 1).padStart(2, '0') }}</span>
               <span>{{ h }}</span>
             </li>
@@ -98,15 +100,15 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
         </section>
 
         <blockquote class="quote" v-reveal>
-          <p>“{{ person.quote }}”</p>
+          <p>“{{ tc(person, 'quote') }}”</p>
           <cite>{{ person.name }}</cite>
         </blockquote>
 
         <section v-if="transcript.length" class="transcript" v-reveal>
           <details class="ts">
             <summary class="ts-summary">
-              <h2>Full transcript</h2>
-              <span class="ts-hint meta">{{ transcript.length }} sections · click to read</span>
+              <h2>{{ t('interview.transcript') }}</h2>
+              <span class="ts-hint meta">{{ t('interview.transcriptHint', { n: transcript.length }) }}</span>
             </summary>
             <div class="ts-body">
               <p v-for="(para, i) in transcript" :key="i">{{ para }}</p>
@@ -114,7 +116,7 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
           </details>
         </section>
 
-        <nav class="pager" aria-label="More episodes" v-reveal>
+        <nav class="pager" :aria-label="t('interview.moreEpisodes')" v-reveal>
           <router-link
             v-if="neighbors.prev"
             :to="`/interviews/${neighbors.prev.id}`"

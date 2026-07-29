@@ -1,7 +1,10 @@
 <script setup>
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useChat } from '../composables/useChat'
+import { useI18n } from '../composables/useI18n'
 import { displayName, renderLite } from '../lib/format'
+
+const { t } = useI18n()
 
 defineProps({
   variant: { type: String, default: 'panel' }, // 'panel' | 'sidebar'
@@ -64,15 +67,15 @@ onMounted(() => {
           <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" />
         </svg>
       </span>
-      <strong>Personalized AI</strong>
-      <span class="ai-sub">Trained on every interview</span>
+      <strong>{{ t('chat.title') }}</strong>
+      <span class="ai-sub">{{ t('chat.subtitle') }}</span>
       <button
         v-if="state.messages.length"
         class="clear-btn"
-        title="Clear conversation"
+        :title="t('chat.clearTitle')"
         @click="clear"
       >
-        Clear
+        {{ t('chat.clear') }}
       </button>
     </header>
 
@@ -88,7 +91,7 @@ onMounted(() => {
             <span v-else v-html="renderLite(m.text)"></span>
           </div>
           <details v-if="m.sources?.length" class="sources">
-            <summary>{{ m.sources.length }} source{{ m.sources.length > 1 ? 's' : '' }}</summary>
+            <summary>{{ t(m.sources.length > 1 ? 'chat.sourceMany' : 'chat.sourceOne', { n: m.sources.length }) }}</summary>
             <ul>
               <li v-for="(s, i) in m.sources" :key="i">
                 <strong>{{ displayName(s.interview) }}</strong> · {{ s.topic }}
@@ -99,7 +102,7 @@ onMounted(() => {
       </template>
 
       <div v-if="state.pending" class="msg msg--assistant">
-        <div class="bubble typing" aria-label="Assistant is thinking">
+        <div class="bubble typing" :aria-label="t('chat.thinking')">
           <span></span><span></span><span></span>
         </div>
       </div>
@@ -110,7 +113,7 @@ onMounted(() => {
         ref="inputEl"
         v-model="draft"
         rows="1"
-        placeholder="Ask anything…"
+        :placeholder="t('chat.placeholder')"
         @keydown="onKeydown"
         @input="autoGrow"
       ></textarea>
@@ -118,7 +121,7 @@ onMounted(() => {
         type="submit"
         class="send-btn"
         :disabled="state.pending || !draft.trim()"
-        aria-label="Send question"
+        :aria-label="t('chat.send')"
       >
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
           <path

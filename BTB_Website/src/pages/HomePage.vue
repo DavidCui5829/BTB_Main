@@ -1,35 +1,36 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { interviews } from '../data/interviews'
 import { useSeo } from '../composables/useSeo'
+import { useI18n } from '../composables/useI18n'
 import { homeSeo } from '../lib/seo'
 import InterviewCard from '../components/InterviewCard.vue'
 import FeaturedEpisode from '../components/FeaturedEpisode.vue'
 import ChatPanel from '../components/ChatPanel.vue'
 
+const { t } = useI18n()
+
 // Latest episode, spotlighted below the hero (still appears in the grid too).
 const featured = [...interviews].sort((a, b) => (b.episode || 0) - (a.episode || 0))[0]
 
-const homeQuestions = [
-  'What does a typical day look like for a NASA engineer?',
-  'How did these engineers choose their majors?',
-  'What advice do they have for students?',
-]
+// Re-derives on locale change (t reads the reactive locale).
+const homeQuestions = computed(() => [t('home.q1'), t('home.q2'), t('home.q3')])
 
-// David first — he designed and built the site and the AI.
+// David first — he designed and built the site and the AI. Role/note are i18n
+// keys (resolved at render) since they're interface copy, not interview data.
 const team = [
   {
     name: 'David Cui',
-    role: 'Builder & co-host',
-    note: 'Designed and built this website and the Personalized AI from scratch.',
+    roleKey: 'home.team.builderRole',
+    noteKey: 'home.team.davidNote',
     portfolio: 'https://dczhportfolio.vercel.app/',
     email: 'davidcuizhh1@gmail.com',
     photo: '/hosts/david-cui.jpg',
   },
   {
     name: 'Joshua Babalola',
-    role: 'Co-host',
-    note: '',
+    roleKey: 'home.team.coHost',
+    noteKey: '',
     portfolio: '',
     email: '',
   },
@@ -64,14 +65,11 @@ useSeo(homeSeo(interviews))
       </div>
       <div class="container hero-inner">
         <div class="hero-content">
-          <p class="hero-eyebrow rise r1">Created by students, for students</p>
-          <h1 class="rise r2">What engineers<br /><span class="grad">actually do.</span></h1>
-          <p class="hero-sub rise r3">
-            Real interviews with engineers at NASA, Google and ISRO. Then talk to
-            our Personalized AI, trained on all of them.
-          </p>
+          <p class="hero-eyebrow rise r1">{{ t('home.eyebrow') }}</p>
+          <h1 class="rise r2">{{ t('home.titleLine1') }}<br /><span class="grad">{{ t('home.titleLine2') }}</span></h1>
+          <p class="hero-sub rise r3">{{ t('home.sub') }}</p>
           <div class="hero-cta rise r4">
-            <a href="#interviews" class="btn btn-ink">Explore interviews</a>
+            <a href="#interviews" class="btn btn-ink">{{ t('home.cta') }}</a>
           </div>
         </div>
         <div id="ask" class="hero-chat rise r3">
@@ -87,7 +85,7 @@ useSeo(homeSeo(interviews))
           <FeaturedEpisode :person="featured" />
         </div>
         <div class="section-head" v-reveal>
-          <h2>All interviews</h2>
+          <h2>{{ t('home.allInterviews') }}</h2>
         </div>
         <div class="cards-grid">
           <InterviewCard
@@ -104,28 +102,16 @@ useSeo(homeSeo(interviews))
     <section id="about" class="section about">
       <div class="container">
         <div class="section-head" v-reveal>
-          <h2>Why we built this</h2>
+          <h2>{{ t('home.about.heading') }}</h2>
         </div>
 
         <div class="about-story" v-reveal>
-          <p class="lead">
-            Beyond the Blueprint started with a question we kept asking ourselves:
-            what do engineers <em>actually</em> do all day? Course catalogs and
-            rankings never answered it, so we went and asked.
-          </p>
-          <p>
-            We sit down with engineers at NASA, Google, ISRO and beyond and capture
-            the honest, day-to-day reality of their work. Then we built a personalized
-            AI, trained on every interview, so any student can ask their own questions
-            and get answers grounded in real conversations.
-          </p>
-          <p>
-            We're students ourselves, and we made this for students: a free, honest
-            look at engineering careers, straight from the people living them.
-          </p>
+          <p class="lead" v-html="t('home.about.lead')"></p>
+          <p>{{ t('home.about.p1') }}</p>
+          <p>{{ t('home.about.p2') }}</p>
         </div>
 
-        <h3 class="team-heading" v-reveal>The students behind it</h3>
+        <h3 class="team-heading" v-reveal>{{ t('home.about.teamHeading') }}</h3>
         <div class="team" v-reveal="80">
           <article v-for="h in team" :key="h.name" class="team-card">
             <img
@@ -139,11 +125,11 @@ useSeo(homeSeo(interviews))
             <span v-else class="team-avatar team-monogram" aria-hidden="true">{{ initials(h.name) }}</span>
             <div class="team-info">
               <strong>{{ h.name }}</strong>
-              <span class="team-role">{{ h.role }}</span>
-              <p v-if="h.note" class="team-note">{{ h.note }}</p>
+              <span class="team-role">{{ t(h.roleKey) }}</span>
+              <p v-if="h.noteKey" class="team-note">{{ t(h.noteKey) }}</p>
               <div v-if="h.portfolio || h.email" class="team-links">
-                <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">Portfolio ↗</a>
-                <a v-if="h.email" :href="`mailto:${h.email}`">Email</a>
+                <a v-if="h.portfolio" :href="h.portfolio" target="_blank" rel="noopener">{{ t('home.team.portfolio') }}</a>
+                <a v-if="h.email" :href="`mailto:${h.email}`">{{ t('home.team.email') }}</a>
               </div>
             </div>
           </article>

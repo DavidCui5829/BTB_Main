@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import { videoThumbnailHi, videoThumbnailMq } from '../lib/video'
 import { orgLogo } from '../lib/logos'
+import { useI18n } from '../composables/useI18n'
+
+const { tc } = useI18n()
 
 const props = defineProps({
   person: { type: Object, required: true },
@@ -48,7 +51,7 @@ function onThumb(e) {
     </div>
 
     <div class="body">
-      <span class="field meta">{{ person.field }}</span>
+      <span class="field meta">{{ tc(person, 'field') }}</span>
       <h3>{{ person.name }}</h3>
       <p class="role">
         <img
@@ -61,7 +64,7 @@ function onThumb(e) {
           loading="lazy"
           @error="hideBroken"
         />
-        <span>{{ person.role }} · {{ person.org }}</span>
+        <span>{{ tc(person, 'role') }} · {{ person.org }}</span>
       </p>
     </div>
   </router-link>
