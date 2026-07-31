@@ -15,8 +15,21 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const { t, tc } = useI18n()
+const { t, tc, locale } = useI18n()
 const person = computed(() => getInterview(props.id))
+
+// Upload date, formatted in the active language and pinned to the intended
+// calendar day regardless of the viewer's timezone.
+function formatDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(locale.value, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })
+}
 
 // Full transcript — lazily loaded per episode. Kept in the DOM (inside <details>)
 // so search engines index the text even while it's visually collapsed.
@@ -54,7 +67,8 @@ useSeo(() => (person.value ? interviewSeo(person.value) : null))
 
         <header class="head">
           <p class="meta head-meta" v-reveal>
-            EP {{ String(person.episode).padStart(2, '0') }} · {{ tc(person, 'field') }}
+            EP {{ String(person.episode).padStart(2, '0') }} · {{ tc(person, 'field')
+            }}<span v-if="person.date"> · {{ formatDate(person.date) }}</span>
           </p>
           <h1 v-reveal="50">{{ person.name }}</h1>
           <p class="byline" v-reveal="90">

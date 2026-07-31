@@ -163,6 +163,16 @@ export function renderHeadTags(seo) {
   return tags.join('\n    ')
 }
 
+// Format an ISO upload date as "May 7, 2025" (English base; the client
+// re-renders it in the active locale). Uses the date part only, so the day
+// never shifts with timezones.
+function fmtDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number)
+  const mo = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${mo[m - 1]} ${d}, ${y}`
+}
+
 // Render a crawlable static <body> for an interview page: heading, intro,
 // highlights and the full transcript. The prerender plugin injects this into the
 // #app element so non-JS crawlers (Bing, GPTBot, social unfurlers) and first
@@ -171,7 +181,7 @@ export function renderHeadTags(seo) {
 export function renderInterviewBody(p, paragraphs = []) {
   const out = [
     `<main class="detail"><div class="container">`,
-    `<p class="meta">EP ${String(p.episode).padStart(2, '0')} · ${esc(p.field)}</p>`,
+    `<p class="meta">EP ${String(p.episode).padStart(2, '0')} · ${esc(p.field)}${p.date ? ' · ' + fmtDate(p.date) : ''}</p>`,
     `<h1>${esc(p.name)}</h1>`,
     `<p class="byline">${esc(p.role)} · ${esc(p.org)}</p>`,
   ]
