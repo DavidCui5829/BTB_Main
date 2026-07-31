@@ -4,11 +4,24 @@ import { videoThumbnailHi, videoThumbnailMq } from '../lib/video'
 import { orgLogo } from '../lib/logos'
 import { useI18n } from '../composables/useI18n'
 
-const { t, tc } = useI18n()
+const { t, tc, locale } = useI18n()
 
 const props = defineProps({
   person: { type: Object, required: true },
 })
+
+// Upload date, formatted in the active language and pinned to the intended
+// calendar day regardless of the viewer's timezone.
+function formatDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(locale.value, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })
+}
 
 const thumb = computed(() => videoThumbnailHi(props.person.video) || '/btb-cover.png')
 const thumbMq = computed(() => videoThumbnailMq(props.person.video))
@@ -48,7 +61,8 @@ function onThumb(e) {
     </div>
 
     <div class="feature-body">
-      <span class="feature-field meta">{{ tc(person, 'field') }}</span>
+      <span class="feature-field meta">{{ tc(person, 'field')
+        }}<span v-if="person.date"> · {{ formatDate(person.date) }}</span></span>
       <h3>{{ person.name }}</h3>
       <p class="feature-role">
         <img
