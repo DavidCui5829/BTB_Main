@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <span>© 2026 Beyond the Blueprint</span>
-      <span>Awty International School</span>
+      <span>Made across the US and Nigeria</span>
     </div>
   </footer>
 </template>

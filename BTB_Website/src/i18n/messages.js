@@ -42,7 +42,7 @@ export const messages = {
       team: {
         builderRole: 'Builder & co-host',
         coHost: 'Co-host',
-        davidNote: 'Designed and built this website and the Personalized AI from scratch.',
+        davidNote: 'An up-and-coming engineer and violinist who leads his robotics team. He designed and built this entire website and the Personalized AI from scratch.',
         portfolio: 'Portfolio ↗',
         email: 'Email',
       },
@@ -109,7 +109,7 @@ export const messages = {
       team: {
         builderRole: 'Créateur et co-animateur',
         coHost: 'Co-animateur',
-        davidNote: "A conçu et créé ce site web et l'IA personnalisée de A à Z.",
+        davidNote: "Un ingénieur et violoniste en devenir qui dirige son équipe de robotique. Il a conçu et créé de A à Z ce site web et l'IA personnalisée.",
         portfolio: 'Portfolio ↗',
         email: 'E-mail',
       },
@@ -176,7 +176,7 @@ export const messages = {
       team: {
         builderRole: 'Creador y coanfitrión',
         coHost: 'Coanfitrión',
-        davidNote: 'Diseñó y creó este sitio web y la IA personalizada desde cero.',
+        davidNote: 'Un ingeniero y violinista en ascenso que lidera su equipo de robótica. Diseñó y creó desde cero este sitio web y la IA personalizada.',
         portfolio: 'Portafolio ↗',
         email: 'Correo',
       },
@@ -243,7 +243,7 @@ export const messages = {
       team: {
         builderRole: '创建者兼联合主持人',
         coHost: '联合主持人',
-        davidNote: '从零开始设计并打造了本网站和专属 AI。',
+        davidNote: '一位崭露头角的工程师兼小提琴手，带领着自己的机器人团队。他从零开始设计并打造了本网站和专属 AI。',
         portfolio: '作品集 ↗',
         email: '邮箱',
       },
