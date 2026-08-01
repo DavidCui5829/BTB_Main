@@ -374,8 +374,9 @@ useSeo(homeSeo(interviews))
 
 .team-card {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 16px;
   padding: 24px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -384,9 +385,9 @@ useSeo(homeSeo(interviews))
 
 .team-avatar {
   flex: none;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
   object-fit: cover;
   object-position: center;
   background: var(--surface);
@@ -395,7 +396,7 @@ useSeo(homeSeo(interviews))
 .team-monogram {
   display: grid;
   place-items: center;
-  font-size: 20px;
+  font-size: 46px;
   font-weight: 650;
   color: #fff;
   letter-spacing: 0.02em;
